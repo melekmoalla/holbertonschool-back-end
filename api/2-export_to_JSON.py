@@ -19,7 +19,10 @@ if __name__ == '__main__':
     todos = todo.json()
     id = employee['id']
     name = employee['username']
-
+    dicti = {employee.get("id"): [{"task": task.get("title"),
+                               "completed": task.get("completed"),
+                               "username": employee.get(
+        "username")} for task in todos]}
 
     lis = {}
     m = []
