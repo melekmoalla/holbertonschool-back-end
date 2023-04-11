@@ -27,10 +27,6 @@ if __name__ == '__main__':
     import requests
     import sys
 
-    if len(sys.argv) < 2:
-        print("Usage: python3 0-gather_data_from_an_API.py EMPLOYEE_ID")
-        sys.exit(1)
-
     employee_id = sys.argv[1]
 
     # Make the API request
