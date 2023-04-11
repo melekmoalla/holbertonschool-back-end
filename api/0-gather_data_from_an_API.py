@@ -46,7 +46,7 @@ if __name__ == '__main__':
     completed_tasks_titles = [todo['title']
                               for todo in todos if todo['completed']]
 
-    a ="is done with tasks"
+    a = "is done with tasks"
     print(
         f"Employee {employee_name} {a}({completed_tasks}/{total_tasks}):")
     for title in completed_tasks_titles:
