@@ -28,31 +28,26 @@ if __name__ == '__main__':
     import sys
 
     employee_id = sys.argv[1]
-
-    # Make the API request
     response = requests.get(
         'https://jsonplaceholder.typicode.com/users/' + employee_id)
     todos = requests.get(
         'https://jsonplaceholder.typicode.com/todos?userId=' + employee_id)
 
-    # Check that the request was successful
     if response.status_code != 200 or todos.status_code != 200:
         print("Error: Could not retrieve data from API.")
         sys.exit(1)
 
-    # Parse the response JSON data
     employee = response.json()
     todos = todos.json()
 
-    # Extract the relevant data
     employee_name = employee['name']
     total_tasks = len(todos)
     completed_tasks = sum(1 for todo in todos if todo['completed'])
     completed_tasks_titles = [todo['title']
                               for todo in todos if todo['completed']]
 
-    # Output the data
+    a ="is done with tasks"
     print(
-        f"Employee {employee_name} is done with tasks({completed_tasks}/{total_tasks}):")
+        f"Employee {employee_name} {a}({completed_tasks}/{total_tasks}):")
     for title in completed_tasks_titles:
         print(f"\t {title}")
