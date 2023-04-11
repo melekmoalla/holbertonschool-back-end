@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 
-import requests
-import sys
+
 """
 Write a Python script that, using this REST API, for a
 given employee ID, returns information about his/her TODO
@@ -23,7 +22,12 @@ of completed and non-completed tasks
 Second and N next lines display the title of completed tasks:
 TASK_TITLE (with 1 tabulation and 1 space before the TASK_TITLE)
 """
+
+import requests
+import sys
+
 if __name__ == "__main__":
+
     # Retrieve employee data
     employee_id = int(sys.argv[1])
     employee_data = requests.get(f"https://jsonplaceholder.typicode.com/users?id={employee_id}").json()
