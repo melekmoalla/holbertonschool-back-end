@@ -6,9 +6,7 @@ Python script to export data in the JSON format.
 import requests
 import sys
 import json
-
 if __name__ == '__main__':
-    
 
     t = sys.argv[1]
     response = requests.get(
@@ -27,10 +25,9 @@ if __name__ == '__main__':
     for i in todos:
         p = {}
         p["task"] = i['title']
-        p["completed"]=i['completed']
-        p["username"]=name
+        p["completed"] = i['completed']
+        p["username"] = name
         m.append(p)
-    
+
     with open(f'{t}.json', 'w') as file:
         json.dump(lis, file)
-        
