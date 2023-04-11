@@ -1,38 +1,22 @@
 #!/usr/bin/python3
-"""
-Using what you did in the task #0, extend your
-Python script to export data in the JSON format.
-"""
+''''easy come'''
 import json
 import requests
 import sys
 
-if __name__ == '__main__':
 
-    t = sys.argv[1]
-    response = requests.get(
-        'https://jsonplaceholder.typicode.com/users/' + t)
-    todo = requests.get(
-        'https://jsonplaceholder.typicode.com/todos?userId=' + t)
+if __name__ == "__main__":
+    api_url = "https://jsonplaceholder.typicode.com/"
+    user = requests.get(api_url + "users/{}".format(sys.argv[1])).json()
+    todos = requests.get(
+        api_url + "todos", params={"userId": sys.argv[1]}).json()
 
-    employee = response.json()
-    todos = todo.json()
-    id = employee['id']
-    name = employee['username']
-    dicti = {employee.get("id"): [{"task": task.get("title"),
+    dicti = {user.get("id"): [{"task": task.get("title"),
                                "completed": task.get("completed"),
-                               "username": employee.get(
+                               "username": user.get(
         "username")} for task in todos]}
 
-    lis = {}
-    m = []
-    lis["2"] = m
-    for i in todos:
-        p = {}
-        p["task"] = i['title']
-        p["completed"] = i['completed']
-        p["username"] = name
-        m.append(p)
+    file_json = sys.argv[1] + ".json"
+    with open(file_json, "w") as f:
 
-    with open(f'{t}.json', 'w') as file:
-        json.dump(lis, file)
+        json.dump(dicti, f)
