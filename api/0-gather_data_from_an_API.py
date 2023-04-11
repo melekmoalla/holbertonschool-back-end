@@ -30,19 +30,21 @@ if __name__ == "__main__":
 
     # Retrieve employee data
     employee_id = int(sys.argv[1])
-    employee_data = requests.get(f"https://jsonplaceholder.typicode.com/users?id={employee_id}").json()
-    employee_name = employee_data[0]["name"]
-
+    employee_data = requests.get(
+        f"https://jsonplaceholder.typicode.com/users/{employee_id}").json()
+    EMPLOYEE_NAME = employee_data["name"]
 
     # Retrieve todo list for employee
-    todos_data = requests.get(f"https://jsonplaceholder.typicode.com/todos?userId={employee_id}").json()
+    todos_data = requests.get(
+        f"https://jsonplaceholder.typicode.com/todos?userId={employee_id}").json()
     # Calculate progress
-    total_tasks = len(todos_data)
-    completed_tasks = len([task for task in todos_data if task["completed"]== True])
-    progress = f"{completed_tasks}/{total_tasks}"
+    TOTAL_NUMBER_OF_TASKS = len(todos_data)
+    NUMBER_OF_DONE_TASKS = len(
+        [task for task in todos_data if task["completed"] == True])
+    progress = f"{NUMBER_OF_DONE_TASKS}/{TOTAL_NUMBER_OF_TASKS}"
 
     # Print progress and completed tasks
-    print(f"Employee {employee_name} is done with tasks({progress}):")
-    for task in todos_data:
-        if task["completed"] == True:
-            print(f"\t {task['title']}")
+    print(f"Employee {EMPLOYEE_NAME} is done with tasks({progress}):")
+    for TASK_TITLE in todos_data:
+        if TASK_TITLE["completed"] == True:
+            print(f"\t {TASK_TITLE['title']}")
