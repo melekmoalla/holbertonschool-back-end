@@ -3,9 +3,7 @@
 Write a Python script that, using this REST API, for a
 given employee ID, returns information about his/her
 list progress.
-
 Requirements:
-
 You must use urllib or requests module
 The script must accept an integer as a parameter, which is
 the employee ID
@@ -33,7 +31,6 @@ if __name__ == '__main__':
     todos = requests.get(
         'https://jsonplaceholder.typicode.com/todos?userId=' + employee_id)
 
-
     employee = response.json()
     todos = todos.json()
 
@@ -45,6 +42,6 @@ if __name__ == '__main__':
 
     a = "is done with tasks"
     print(
-        f"Employee {employee_name} {a}({completed_tasks}/{total_tasks}):")
+        "Employee {} {}({completed_tasks}/{}):".format(employee_name, a, total_tasks))
     for title in completed_tasks_titles:
-        print(f"\t {title}")
+        print("\t {}".format(title))
