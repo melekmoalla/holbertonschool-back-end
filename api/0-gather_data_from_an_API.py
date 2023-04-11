@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """
 Write a Python script that, using this REST API, for a
-given employee ID, returns information about his/her TODO
+given employee ID, returns information about his/her
 list progress.
 
 Requirements:
@@ -9,7 +9,7 @@ Requirements:
 You must use urllib or requests module
 The script must accept an integer as a parameter, which is
 the employee ID
-The script must display on the standard output the employee TODO
+The script must display on the standard output the employee
 list progress in this exact format:
 First line: Employee EMPLOYEE_NAME is done with tasks
 (NUMBER_OF_DONE_TASKS/TOTAL_NUMBER_OF_TASKS):
@@ -23,7 +23,7 @@ TASK_TITLE (with 1 tabulation and 1 space before the TASK_TITLE)
 
 
 if __name__ == '__main__':
-    
+
     import requests
     import sys
 
@@ -34,8 +34,10 @@ if __name__ == '__main__':
     employee_id = sys.argv[1]
 
     # Make the API request
-    response = requests.get('https://jsonplaceholder.typicode.com/users/' + employee_id)
-    todos = requests.get('https://jsonplaceholder.typicode.com/todos?userId=' + employee_id)
+    response = requests.get(
+        'https://jsonplaceholder.typicode.com/users/' + employee_id)
+    todos = requests.get(
+        'https://jsonplaceholder.typicode.com/todos?userId=' + employee_id)
 
     # Check that the request was successful
     if response.status_code != 200 or todos.status_code != 200:
@@ -50,10 +52,11 @@ if __name__ == '__main__':
     employee_name = employee['name']
     total_tasks = len(todos)
     completed_tasks = sum(1 for todo in todos if todo['completed'])
-    completed_tasks_titles = [todo['title'] for todo in todos if todo['completed']]
+    completed_tasks_titles = [todo['title']
+                              for todo in todos if todo['completed']]
 
     # Output the data
-    print(f"Employee {employee_name} is done with tasks({completed_tasks}/{total_tasks}):")
+    print(
+        f"Employee {employee_name} is done with tasks({completed_tasks}/{total_tasks}):")
     for title in completed_tasks_titles:
         print(f"\t {title}")
-
