@@ -42,6 +42,6 @@ if __name__ == '__main__':
 
     a = "is done with tasks"
     print(
-        "Employee {} {}({completed_tasks}/{}):".format(employee_name, a, total_tasks))
+        "Employee {} {}({}/{}):".format(employee_name, a, completed_tasks, total_tasks))
     for title in completed_tasks_titles:
         print("\t {}".format(title))
