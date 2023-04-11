@@ -39,11 +39,11 @@ if __name__ == "__main__":
     # Calculate progress
     TOTAL_NUMBER_OF_TASKS = len(todos_data)
     NUMBER_OF_DONE_TASKS = len(
-        [task for task in todos_data if task["completed"] is True])
+        [task for task in todos_data if task["completed"]])
     progress = f"{NUMBER_OF_DONE_TASKS}/{TOTAL_NUMBER_OF_TASKS}"
 
     # Print progress and completed tasks
     print(f"Employee {EMPLOYEE_NAME} is done with tasks({progress}):")
     for TASK_TITLE in todos_data:
-        if TASK_TITLE["completed"] is True:
+        if TASK_TITLE["completed"]:
             print(f"\t {TASK_TITLE['title']}")
