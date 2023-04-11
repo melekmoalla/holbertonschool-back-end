@@ -21,29 +21,39 @@ Second and N next lines display the title of completed tasks:
 TASK_TITLE (with 1 tabulation and 1 space before the TASK_TITLE)
 """
 
-import requests
-import sys
 
-if __name__ == "__main__":
+if __name__ == '__main__':
+    
+    import requests
+    import sys
 
-    # Retrieve employee data
-    employee_id = int(sys.argv[1])
-    employee_data = requests.get(
-        f"https://jsonplaceholder.typicode.com/users/{employee_id}").json()
-    EMPLOYEE_NAME = employee_data["name"]
+    if len(sys.argv) < 2:
+        print("Usage: python3 0-gather_data_from_an_API.py EMPLOYEE_ID")
+        sys.exit(1)
 
-    # Retrieve todo list for employee
-    adress = "https://jsonplaceholder.typicode.com/todos?userId="
-    todos_data = requests.get(
-        f"{adress}{employee_id}").json()
-    # Calculate progress
-    TOTAL_NUMBER_OF_TASKS = len(todos_data)
-    NUMBER_OF_DONE_TASKS = len(
-        [task for task in todos_data if task["completed"]])
-    progress = f"{NUMBER_OF_DONE_TASKS}/{TOTAL_NUMBER_OF_TASKS}"
+    employee_id = sys.argv[1]
 
-    # Print progress and completed tasks
-    print(f"Employee {EMPLOYEE_NAME} is done with tasks({progress}):")
-    for TASK_TITLE in todos_data:
-        if TASK_TITLE["completed"]:
-            print(f"\t {TASK_TITLE['title']}")
+    # Make the API request
+    response = requests.get('https://jsonplaceholder.typicode.com/users/' + employee_id)
+    todos = requests.get('https://jsonplaceholder.typicode.com/todos?userId=' + employee_id)
+
+    # Check that the request was successful
+    if response.status_code != 200 or todos.status_code != 200:
+        print("Error: Could not retrieve data from API.")
+        sys.exit(1)
+
+    # Parse the response JSON data
+    employee = response.json()
+    todos = todos.json()
+
+    # Extract the relevant data
+    employee_name = employee['name']
+    total_tasks = len(todos)
+    completed_tasks = sum(1 for todo in todos if todo['completed'])
+    completed_tasks_titles = [todo['title'] for todo in todos if todo['completed']]
+
+    # Output the data
+    print(f"Employee {employee_name} is done with tasks({completed_tasks}/{total_tasks}):")
+    for title in completed_tasks_titles:
+        print(f"\t {title}")
+
