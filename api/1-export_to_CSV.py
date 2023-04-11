@@ -19,22 +19,12 @@ if __name__ == '__main__':
     todos = todos.json()
     id = employee['id']
     name = employee['username']
-    som = []
-    for i in todos:
-            m = []
+
+    with open(f'{employee_id}.csv', 'w') as file:
+        for i in todos:
             TASK_COMPLETED_STATUS = i['completed']
             TASK_TITLE = i['title']
-            m.append(f"{id}")
-            m.append(name)
-            m.append(str(TASK_COMPLETED_STATUS))
-            m.append(TASK_TITLE)
-            som.append(m)
-
-    with open(f'{employee_id}.csv', 'w', newline='') as file:
-        writer = csv.writer(file)
-        writer.writerows(som)
-
-
-
-
-
+            TASK_COMPLETED_STATUS = i['completed']
+            TASK_TITLE = i['title']
+            file.write(
+                f"\"{id}\",\"{name}\",\"{TASK_COMPLETED_STATUS}\",\"{TASK_TITLE}\"\n")
