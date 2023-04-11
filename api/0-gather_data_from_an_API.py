@@ -33,9 +33,6 @@ if __name__ == '__main__':
     todos = requests.get(
         'https://jsonplaceholder.typicode.com/todos?userId=' + employee_id)
 
-    if response.status_code != 200 or todos.status_code != 200:
-        print("Error: Could not retrieve data from API.")
-        sys.exit(1)
 
     employee = response.json()
     todos = todos.json()
