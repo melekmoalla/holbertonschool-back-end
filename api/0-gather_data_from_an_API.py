@@ -19,29 +19,24 @@ Second and N next lines display the title of completed tasks:
 TASK_TITLE (with 1 tabulation and 1 space before the TASK_TITLE)
 """
 
+import requests as r
+from sys import argv
 
-if __name__ == '__main__':
-
-    import requests
-    import sys
-
-    employee_id = sys.argv[1]
-    response = requests.get(
-        'https://jsonplaceholder.typicode.com/users/' + employee_id)
-    todos = requests.get(
-        'https://jsonplaceholder.typicode.com/todos?userId=' + employee_id)
-
-    employee = response.json()
-    todos = todos.json()
-
-    employee_name = employee['name']
-    total_tasks = len(todos)
-    completed_tasks = sum(1 for todo in todos if todo['completed'])
-    completed_tasks_titles = [todo['title']
-                              for todo in todos if todo['completed']]
-
-    a = "is done with tasks"
-    print(
-        "Employee {} {}({}/{}):".format(employee_name, a, completed_tasks, total_tasks))
-    for title in completed_tasks_titles:
-        print("\t {}".format(title))
+if __name__ == "__main__":
+    id = argv[1]
+    todo = r.get("https://jsonplaceholder.typicode.com/todos")
+    name = r.get("https://jsonplaceholder.typicode.com/users/" + id)
+    data = todo.json()
+    done = 0
+    total = 0
+    tasks = []
+    for d in data:
+        if d.get("userId") == int(id):
+            if d.get("completed"):
+                tasks.append(d.get("title"))
+                done += 1
+            total += 1
+    print("Employee {} is done with tasks({}/{}):".format(
+          name.json().get('name'), done, total))
+    for task in tasks:
+        print("\t {}".format(task))
