@@ -1,22 +1,29 @@
 #!/usr/bin/python3
-''''easy come'''
+"""
+Using what you did in the task #0, extend your
+Python script to export data in the JSON format.
+"""
 import json
 import requests
 import sys
 
+if __name__ == '__main__':
 
-if __name__ == "__main__":
-    api_url = "https://jsonplaceholder.typicode.com/"
-    user = requests.get(api_url + "users/{}".format(sys.argv[1])).json()
+    t = sys.argv[1]
+    response = requests.get(
+        'https://jsonplaceholder.typicode.com/users/' + t)
     todos = requests.get(
-        api_url + "todos", params={"userId": sys.argv[1]}).json()
-
-    dicti = {user.get("id"): [{"task": task.get("title"),
-                               "completed": task.get("completed"),
-                               "username": user.get(
-        "username")} for task in todos]}
-
-    file_json = sys.argv[1] + ".json"
-    with open(file_json, "w") as f:
-
-        json.dump(dicti, f)
+        'https://jsonplaceholder.typicode.com/todos?userId=' + t)
+    employee = response.json()
+    todos = todos.json()
+    id = employee['id']
+    name = employee['username']
+    lis = {}
+    m = []
+    lis["2"] = m
+    for i in todos:
+        p = {}
+        p["task"] = i['title']
+        p["completed"] = i['completed']
+        p["username"] = name
+        m.append(p)
