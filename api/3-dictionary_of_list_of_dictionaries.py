@@ -12,13 +12,13 @@ if __name__ == '__main__':
 
     response = requests.get(
         'https://jsonplaceholder.typicode.com/users')
-
+    mo = 'https://jsonplaceholder.typicode.com/todos?userId='
     employee = response.json()
     di = {}
     for a in employee:
         id = a['id']
         todos = requests.get(
-            'https://jsonplaceholder.typicode.com/todos?userId=' + str(id)).json()
+            mo + str(id)).json()
         b = []
         for s in todos:
             lis1 = {}
