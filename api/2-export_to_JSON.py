@@ -1,21 +1,22 @@
 #!/usr/bin/python3
-''''return something'''
+''''easy come'''
 import json
 import requests
 import sys
-if __name__ == '__main__':
-    identity = sys.argv[1]
-    payload = {"userId": identity}
-    user = requests.get(
-        "https://jsonplaceholder.typicode.com/users/{}"
-        .format(identity)).json()
-    to_do_list = requests.get(
-        "https://jsonplaceholder.typicode.com/todos",
-        params=payload).json()
-    jsonn = {}
-    for task in to_do_list:
-        jsonn.update({user.get("id"): [{"task": task.get("task"),
-                                        "completed": task.get("completed"),
-                                        "username": user.get("username")}]})
-    with open(identity + ".json", 'w') as f:
-        json.dump(jsonn, f)
+
+
+if __name__ == "__main__":
+    api_url = "https://jsonplaceholder.typicode.com/"
+    user = requests.get(api_url + "users/{}".format(sys.argv[1])).json()
+    todos = requests.get(
+        api_url + "todos", params={"userId": sys.argv[1]}).json()
+
+    dicti = {user.get("id"): [{"task": task.get("title"),
+                               "completed": task.get("completed"),
+                               "username": user.get(
+        "username")} for task in todos]}
+
+    file_json = sys.argv[1] + ".json"
+    with open(file_json, "w") as f:
+
+        json.dump(dicti, f)
