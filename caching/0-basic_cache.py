@@ -1,11 +1,12 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
+
 """ BaseCaching module
 """
+
 from base_caching import BaseCaching
 
+
 class BasicCache(BaseCaching):
-
-
     def put(self, key, item):
         """ Add an item in the cache
         """
